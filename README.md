@@ -12,7 +12,7 @@ from ADP import *
 ```
 
 ## Usage
-You can begin manipulating the animal database by creating a Manipulate() object.
+You can begin manipulating an animal database table by creating a Manipulate() object.
 If you do not provide an api key the class can automatically handle authentication if the environment variable AIRTABLE_API_KEY is set to your api key.
 ```python
 mytable = Manipulate(base_key, table_name, API_key)
