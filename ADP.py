@@ -99,7 +99,7 @@ class Manipulate(Session):
         Set a mouse"s status to "S: Sacrificed".
 
         Arg:
-            animal_ID: "Animal ID" of selected mouse.
+            animal_ID: Animal ID of selected mouse
         """
         airtable = self.Authenticate(self.base_key, self.table_name,
                                      self.API_key)
@@ -173,7 +173,7 @@ class Manipulate(Session):
 
         Args:
             cage_num: The assigned cage number.
-            month/day/year: The date breeding began.
+            month/day/year: The date breeding began, MM/DD/YYYY format.
             male_ID: Male's "Animal ID".
             female_ID: First female's "Animal ID".
             female_ID2: Second female's (if applicable) "Animal ID".
@@ -296,7 +296,7 @@ class Manipulate(Session):
                "Female was not originally set to breeding"
         airtable.update_by_field(self.animal_ID_col, mother_ID,
                                 {self.status_col: self.pups})
-        airtable.update_by_field(self.animal_ID_col, mother_ID, 
+        airtable.update_by_field(self.animal_ID_col, mother_ID,
                                 {self.weaning_date_col:
                                 str(date_weaned.month) + "/"
                                 + str(date_weaned.day)
@@ -453,7 +453,7 @@ class Manipulate(Session):
             females: List of female mice records within a cage.
 
         Returns:
-            Animal ID of mother and index of mouse in females that has pups
+            Record (dictionary) of mother.
         """
 
         # mother_ID is the cage's female with the lowest ID
