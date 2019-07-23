@@ -27,7 +27,7 @@ my_table.SAC_cage(cage_number)
 my_table.set_breeding(cage_number, month, day, year, male_ID, female_ID, optional_female_ID2)
 
 my_table.weaned(cage_number, offspring_strain, female_number, female_cage, optional_2nd_female_cage,
-                         male_number, male_cage, optional_2nd_male_cage)
+                male_number, male_cage, optional_2nd_male_cage)
 ```
 
 ## License
