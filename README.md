@@ -6,7 +6,7 @@ This module first requires installation of gtalarico's [airtable-python-wrapper]
 ```bash
 pip install airtable-python-wrapper
 ```
-While this repository is getting set up you can use the module by downloading it and opening up python from your command shell
+While this repository is getting set up you can use the repository by downloading it, adding it to your sys.path and opening up python from your command shell
 ```python
 from ADP import *
 ```
