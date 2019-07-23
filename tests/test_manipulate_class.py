@@ -1,6 +1,6 @@
 import pytest
 
-from ADP_dir.ADP import *
+from ADP import *
 from session_dir.session_object import *
 
 def test_get_date_born():
