@@ -6,7 +6,7 @@ This module first requires installation of gtalarico's [airtable-python-wrapper]
 ```bash
 pip install airtable-python-wrapper
 ```
-While this repository is getting set up you can use the module by downloading it and opening up python from your command shell
+While this repository is getting set up you can use the repository by downloading it, adding it to your sys.path and opening up python from your command shell
 ```python
 from ADP import *
 ```
@@ -27,7 +27,7 @@ my_table.SAC_cage(cage_number)
 my_table.set_breeding(cage_number, month, day, year, male_ID, female_ID, optional_female_ID2)
 
 my_table.weaned(cage_number, offspring_strain, female_number, female_cage, optional_2nd_female_cage,
-                         male_number, male_cage, optional_2nd_male_cage)
+                male_number, male_cage, optional_2nd_male_cage)
 ```
 
 ## License
