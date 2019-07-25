@@ -1,19 +1,19 @@
 # airtable-animal-database
-A python module that manipulates the Airtable API in order to automate entries to an animal database.
+A python module that manipulates the Airtable API to automate entries to an animal database.
 
 ## Installation
 This module first requires installation of gtalarico's [airtable-python-wrapper](https://github.com/gtalarico/airtable-python-wrapper).
 ```bash
 pip install airtable-python-wrapper
 ```
-While this repository is getting set up you can use the repository by downloading it, adding it to your sys.path and opening up python from your command shell
+While this repository is getting set up you can use it by downloading it, adding it to your sys.path and opening up python from your command shell.
 ```python
 from ADP import *
 ```
 
 ## Usage
-You can begin manipulating an animal database table by creating a Manipulate() object.
-If you do not provide an api key the class can automatically handle authentication if the environment variable AIRTABLE_API_KEY is set to your api key.
+You can manipulate an animal database table by creating a Manipulate() object.
+If you do not provide an api key the class will automatically handle authentication if the environment variable AIRTABLE_API_KEY is set to your api key.
 ```python
 mytable = Manipulate(base_key, table_name, API_key)
 ```
