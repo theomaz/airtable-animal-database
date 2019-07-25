@@ -546,6 +546,9 @@ class Manipulate(Session):
         if female_num > 5:
             assert female_cage2 is not False,\
                    "Not enough cages to assign females"
+        # Prevent accidental entries of too many offspring
+        assert male_num <= 20, "Number of males too large"
+        assert female_num <= 20, "Number of females too large"
         if airtable.search(self.strain_col, strain) == []:
             verify = input("You are about to enter a new strain that" +
                            " is not in the database. Continue? y/n >")
