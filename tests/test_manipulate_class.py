@@ -1,7 +1,13 @@
 import pytest
+from unittest.mock import patch
 
 from ADP import *
 from session_dir.session_object import *
+
+class ManipulateTests(unittest.TestCase):
+    @patch('ADP.Manipulate')
+    def test_get_max_ID(self):
+
 
 def test_get_date_born():
     """
