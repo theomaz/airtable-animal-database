@@ -423,7 +423,7 @@ class Manipulate(Session):
             counter += 1
             mice_in_cohort += 1 
 
-    def get_mother(self, females): 
+    def get_parents(self, males, females): 
 
         """
         Find mother (i.e. lowest ID female) in cage.
@@ -440,18 +440,30 @@ class Manipulate(Session):
         females = sorted(females, key = lambda i: i["fields"][self.ID_col])
         with_pups_index = 0
         for i in range(0, len(females)):
-            # If female is alive, check if status is "P: With Pups"
             if (females[i]["fields"][self.status_col] != self.SACed\
                 and females[i]["fields"][self.status_col] != self.dead):
                 with_pups_index = i
                 break
             else:
                 pass
+        # If female is alive, check if status is "P: With Pups"
         assert (females[with_pups_index]["fields"][self.status_col]\
                 == self.pups), "Mother did not have P: With Pups status"
         mother_record = females[with_pups_index]
 
-        return mother_record
+        for i in range(0, len(males)):
+            # Make sure Father ID is asigned to alive male
+            if (males[i]["fields"][self.status_col] != self.SACed\
+                and males[i]["fields"][self.status_col] != self.dead):
+                father_index = i
+                break
+            else:
+                pass
+        assert(males[father_index]["fields"][self.status_col]\
+               == self.breeding), "Father was not set to breeding"
+        father_record = males[father_index]
+
+        return father_record, mother_record
     
     def genotype_maintenance(self, offspring_strain, need_genotyping, record):
         """
@@ -558,14 +570,14 @@ class Manipulate(Session):
                 return
 
         males, females = self.group_by_gender(cage_num)
-        mother_record = self.get_mother(females)
+        father_record, mother_record = self.get_parents(males, females)
         mother_ID = mother_record["fields"][self.animal_ID_col]
 
         # "IDS" signifies Animal ID + Strain
         mother_IDS = (mother_ID + "_"
                       + mother_record["fields"][self.strain_col])
-        father_IDS = (males[0]["fields"][self.animal_ID_col] + "_"
-                      + males[0]["fields"][self.strain_col])
+        father_IDS = (father_record["fields"][self.animal_ID_col] + "_"
+                      + father_record["fields"][self.strain_col])
         # Calculate when pups were born (weaning date - 21 days):
         date_weaned = mother_record["fields"][self.weaning_date_col]
         date_born = get_date_born(date_weaned)
