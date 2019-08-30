@@ -58,7 +58,11 @@ class Manipulate(Session):
     """
 
     def __init__(self, *args, **kwargs):
+
         super(Manipulate, self).__init__(*args, **kwargs)
+        # Views
+        self.main_view = "Active Mice"
+
         # Column Categories
         self.ID_col = "ID"
         self.status_col = "Status"
@@ -287,7 +291,9 @@ class Manipulate(Session):
         matches = airtable.search(self.cage_card_col, cage_num)
         females = []
         for record in matches:
-            if record["fields"][self.gender_col] == self.female:
+            if record["fields"][self.gender_col] == self.female and\
+            record["fields"][self.status_col] != self.SACed and\
+            record["fields"][self.status_col] != self.dead:
                 females.append(record)
         females = sorted(females, key = lambda i: i["fields"][self.ID_col])
         mother_ID = females[0]["fields"][self.animal_ID_col]
@@ -606,6 +612,30 @@ class Manipulate(Session):
         self.assign_weaned_mice(max_ID, record, cage_num, cohort, female_num, female_cage,
                                 female_cage2, max_females, male_num,
                                 male_cage, male_cage2, max_males)
+
+    def get_negatives(self):
+        airtable = self.Authenticate(self.base_key, self.table_name, self.API_key)
+
+        cre_cages = []
+        for record in airtable.get_all(view=self.main_view):
+            if "-Cre" in record["fields"][self.strain_col] and\
+                record["fields"][self.cage_card_col] not in cre_cages:
+                cre_cages.append(record["fields"][self.cage_card_col])
+                
+        negative_cages = []
+        for cage in cre_cages:
+            records = airtable.search(self.cage_card_col, cage)
+            all_negatives = True
+            for record in records:
+                if '-Cren' in record["fields"][self.strain_col]:
+                    pass
+                else:
+                    all_negatives = False
+                    break
+            if all_negatives:
+                negative_cages.append(cage)
+        return negative_cages
+                
 
 def get_date_born(date_weaned):
     """

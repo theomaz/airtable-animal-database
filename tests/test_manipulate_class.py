@@ -7,7 +7,7 @@ from session_dir.session_object import *
 class ManipulateTests(unittest.TestCase):
     @patch('ADP.Manipulate')
     def test_get_max_ID(self):
-
+        self.assertEqual()
 
 def test_get_date_born():
     """
